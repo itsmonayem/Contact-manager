@@ -1,5 +1,6 @@
 package com.spring.contactmanager.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -19,6 +20,7 @@ public class Contact {
 
 
     @ManyToOne
+    @JsonIgnore
     private User user;
 
 
@@ -97,17 +99,22 @@ public class Contact {
     }
 
     @Override
-    public String toString() {
-        return "Contact{" +
-                "cId=" + cId +
-                ", name='" + name + '\'' +
-                ", nickName='" + nickName + '\'' +
-                ", work='" + work + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", image='" + image + '\'' +
-                ", description='" + description + '\'' +
-                ", user=" + user +
-                '}';
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
+
+    //    @Override
+//    public String toString() {
+//        return "Contact{" +
+//                "cId=" + cId +
+//                ", name='" + name + '\'' +
+//                ", nickName='" + nickName + '\'' +
+//                ", work='" + work + '\'' +
+//                ", email='" + email + '\'' +
+//                ", phone='" + phone + '\'' +
+//                ", image='" + image + '\'' +
+//                ", description='" + description + '\'' +
+//                ", user=" + user +
+//                '}';
+//    }
 }

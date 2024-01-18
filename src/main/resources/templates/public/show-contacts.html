@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="public/base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section>
+    <div class="container">
+        <div class="card col-md-10 offset-md-2">
+            <div class="card-body">
+
+<!--                search-->
+                <div class="search-container">
+                    <input type="text" onkeyup="search()" class="form-control" id="search-input" placeholder="search name">
+                    <div class="search-result">
+                        <h5>Result</h5>
+                    </div>
+                </div>
+
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="c: ${contacts}">
+                        <th scope="row" th:text="${c.cId}"></th>
+                        <td th:text="${c.name}"></td>
+                        <td th:text="${c.email}"></td>
+                        <td th:text="${c.phone}"></td>
+                        <td>
+                            <a th:href="@{'/user/update/'+${c.cId}}" class="btn bg-primary btn-sm">UPDATE</a>
+                            <a th:href="@{'/user/delete/'+${c.cId}}" class="btn btn-danger btn-sm">DELETE</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <!--                Pagination-->
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li th:if="${currentPage != 0}" class="page-item"><a class="page-link" th:href="@{'/user/show-contacts/'+${currentPage-1}}">Previous</a></li>
+                        <li class="page-item" th:each="i : ${#numbers.sequence(1,totalPages)}"
+                            th:classappend="${currentPage == i-1?'active':''}"><a class="page-link"
+                                                                                  th:href="@{'/user/show-contacts/'+${i-1}}"><span
+                                th:text="${i}"></span></a></li>
+                        <li th:if="${currentPage+1 != totalPages}" class="page-item"><a class="page-link"
+                                                                                        th:href="@{'/user/show-contacts/'+${currentPage+1}}">Next</a></li>
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
